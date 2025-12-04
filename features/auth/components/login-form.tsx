@@ -23,6 +23,13 @@ export const LoginForm = () => {
         />
 
         <LoginInput
+          name="email"
+          type="email"
+          placeholder="Email"
+          error={errors?.email}
+        />
+
+        <LoginInput
           name="password"
           type="password"
           placeholder="Password"

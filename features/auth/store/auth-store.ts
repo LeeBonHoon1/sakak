@@ -3,6 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 type User = {
   name: string;
+  email: string;
 };
 
 type AuthState = {

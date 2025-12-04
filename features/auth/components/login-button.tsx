@@ -16,7 +16,7 @@ export const LoginButton = ({ state }: { state: LoginState }) => {
 
   useEffect(() => {
     if (state?.success && !pending) {
-      setUser({ name: state.data.name });
+      setUser({ name: state.data.name, email: state.data.email });
       router.push("/dashboard");
     }
   }, [state, pending, router, setUser]);

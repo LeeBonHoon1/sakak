@@ -4,7 +4,7 @@ import { formSchema } from "@/features/auth/schemas";
 
 export type LoginState =
   | { success: false; error: Record<string, string[] | undefined> }
-  | { success: true; data: { name: string; password: string } }
+  | { success: true; data: { name: string; email: string; password: string } }
   | null;
 
 export const login = async (
@@ -13,6 +13,7 @@ export const login = async (
 ): Promise<LoginState> => {
   const validatedFields = formSchema.safeParse({
     name: formData.get("name"),
+    email: formData.get("email"),
     password: formData.get("password"),
   });
 
