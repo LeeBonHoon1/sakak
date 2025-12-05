@@ -5,14 +5,13 @@ import { CheckupResponse } from "@/features/checkup/types";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const apiKey = process.env.NEXT_PUBLIC_API_KEY || "";
 
     const response = await axios.post<CheckupResponse>(
       `${process.env.NEXT_PUBLIC_BASE_URL}/v1/nhis/checkup`,
       body,
       {
         headers: {
-          "x-api-key": apiKey,
+          "x-api-key": process.env.NEXT_PUBLIC_API_KEY,
         },
       }
     );

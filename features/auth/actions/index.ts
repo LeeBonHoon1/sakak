@@ -1,6 +1,6 @@
 "use server";
 
-import { formSchema } from "@/features/auth/schemas";
+import { formSchema } from "@/features/auth/schema";
 
 export type LoginState =
   | { success: false; error: Record<string, string[] | undefined> }

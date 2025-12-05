@@ -2,14 +2,14 @@ import { mutationOptions } from "@tanstack/react-query";
 import { postCheckupApi } from "@/features/checkup/apis";
 import type { CheckupSubmitResponse } from "@/features/checkup/types";
 
-export type MultiFactorInfo = {
+export interface MultiFactorInfo {
   jobIndex: number;
   threadIndex: number;
   transactionId: string;
   multiFactorTimestamp: number;
-};
+}
 
-export type CheckupParams = {
+export interface CheckupParams {
   id: string;
   loginTypeLevel: string;
   legalName: string;
@@ -21,7 +21,7 @@ export type CheckupParams = {
   inquiryType: string;
   isContinue?: string;
   multiFactorInfo?: MultiFactorInfo;
-};
+}
 
 export const useCheckupMutationOptions = () => {
   return mutationOptions<CheckupSubmitResponse, Error, CheckupParams>({

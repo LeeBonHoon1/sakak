@@ -2,7 +2,7 @@
 
 import { createContext, useContext } from "react";
 import { type UseFormReturn } from "react-hook-form";
-import type { CheckupFormSchema } from "@/features/checkup/schemas";
+import type { CheckupFormSchema } from "@/features/checkup/schema";
 import type { CheckupSubmitResponse } from "@/features/checkup/types";
 
 type CheckupFormContextType = {

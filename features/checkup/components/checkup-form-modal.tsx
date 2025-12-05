@@ -13,15 +13,31 @@ import { Button } from "@/components/ui/button";
 import { CheckupFormActions } from "@/features/checkup/components/checkup-form-actions";
 import { CheckupFormProvider } from "@/features/checkup/components/checkup-form-provider";
 
-const CheckupFormModal = () => {
+interface CheckupFormModalProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  trigger?: React.ReactNode;
+}
+
+const CheckupFormModal = ({
+  open: controlledOpen,
+  onOpenChange: controlledOnOpenChange,
+  trigger,
+}: CheckupFormModalProps = {}) => {
   const formRef = useRef<HTMLFormElement>(null);
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const setOpen = controlledOnOpenChange || setInternalOpen;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button className="ml-4">건강검진 조회하기</Button>
-      </DialogTrigger>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      {!trigger && controlledOpen === undefined && (
+        <DialogTrigger asChild>
+          <Button className="ml-4">건강검진 조회하기</Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="w-[900px] h-[600px] flex flex-col p-0">
         <CheckupFormProvider onClose={() => setOpen(false)}>
           <DialogHeader className="px-6 pt-6 pb-4">

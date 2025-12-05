@@ -1,7 +1,6 @@
 "use client";
 
 import { CheckCircle2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 import { useCheckupForm } from "@/features/checkup/components/checkup-form-context";
 
@@ -9,12 +8,8 @@ import { Button } from "@/components/ui/button";
 
 export const CheckupStep8 = () => {
   const { onClose } = useCheckupForm();
-  const router = useRouter();
 
-  const handleClose = () => {
-    onClose?.();
-    router.push("/dashboard/checkup");
-  };
+  const handleClose = () => onClose?.();
 
   return (
     <div className="space-y-4 flex flex-col items-center justify-center min-h-[400px]">

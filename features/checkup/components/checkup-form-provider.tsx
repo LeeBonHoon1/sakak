@@ -1,5 +1,6 @@
 "use client";
 
+import axios from "axios";
 import { z } from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,19 +14,19 @@ import {
   step3Schema,
   step4Schema,
   type CheckupFormSchema,
-} from "@/features/checkup/schemas";
+} from "@/features/checkup/schema";
 import { useAuthStore } from "@/features/auth/store/auth-store";
-import { CheckupFormContext } from "@/features/checkup/components/checkup-form-context";
 import { useMutation } from "@tanstack/react-query";
 import { useCheckupMutationOptions } from "@/features/checkup/query-options";
 import { Form } from "@/components/ui/form";
-import axios from "axios";
 import { useCheckupStore } from "@/features/checkup/store";
 import type {
   CheckupSubmitResponse,
   CheckupMultiFactorResponse,
   CheckupData,
 } from "@/features/checkup/types";
+
+import { CheckupFormContext } from "@/features/checkup/components/checkup-form-context";
 
 const STEP_SCHEMAS = [step1Schema, step2Schema, step3Schema, step4Schema];
 
@@ -106,7 +107,6 @@ export const CheckupFormProvider = ({
           setFirstResponse(data as CheckupMultiFactorResponse);
           updateStep(6);
         } else if (isSecondResponse) {
-          // 두 번째 응답 성공 시 store에 데이터 저장
           setCheckupData(responseData as CheckupData);
           updateStep(8);
         } else {
