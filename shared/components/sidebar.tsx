@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { X, LogOut } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { DASHBOARD_MENU_ITEMS } from "@/shared/constants";
+import { useAuthStore } from "@/features/auth/store/auth-store";
+import { useCheckupStore } from "@/features/checkup/store";
 
 import { Button } from "@/components/ui/button";
 
@@ -16,6 +18,16 @@ interface SidebarProps {
 
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const pathname = usePathname();
+  const router = useRouter();
+  const { clearUser } = useAuthStore();
+  const { clearCheckupData } = useCheckupStore();
+
+  const handleLogout = () => {
+    clearUser();
+    clearCheckupData();
+    if (onClose) onClose();
+    router.push("/login");
+  };
 
   return (
     <>
@@ -33,7 +45,12 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         )}
       >
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-          <h1 className="font-bold">Sakak</h1>
+          <h1
+            className="font-bold cursor-pointer"
+            onClick={() => router.push("/dashboard")}
+          >
+            Sakak
+          </h1>
           <Button
             variant="ghost"
             size="icon"
@@ -65,6 +82,16 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             );
           })}
         </nav>
+        <div className="p-4 border-t border-gray-200">
+          <Button
+            variant="ghost"
+            className="w-full justify-start gap-3 text-gray-700 hover:bg-gray-100"
+            onClick={handleLogout}
+          >
+            <LogOut className="h-5 w-5" />
+            <span className="font-medium">로그아웃</span>
+          </Button>
+        </div>
       </div>
     </>
   );
